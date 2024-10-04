@@ -1,4 +1,5 @@
 var express = require('express');
+const bodyParser = require('body-parser');
 var app = express();
 const router = express.Router();
 const path = require('path');
@@ -24,6 +25,7 @@ router.get('/logout', (req, res) => {
 });
  
 app.use('/', router);
+app.use(bodyParser.json());
 
 app.listen(process.env.PORT || 3000, () => {
     console.log('Web Server is listening at port ' + (process.env.PORT || 3000));
