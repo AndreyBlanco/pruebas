@@ -1,6 +1,10 @@
 var express = require('express');
 var app = express();
 const router = express.Router();
+
+router.get('/', (req, res) => {
+    res.sendFile(path.join(_dirname, 'html', 'home.html'));
+});
  
 router.get('/home', (req, res) => {
   res.send('Hello World, This is home router');
