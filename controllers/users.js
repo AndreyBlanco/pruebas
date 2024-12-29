@@ -1,11 +1,33 @@
 const path = require('path');
+const mongodb = require('../db/connect');
 
 const home = (req, res) => {
     res.sendFile(path.join(__dirname,'../html/home.html'));
 };
 
-const hello = (req, res) => {
-    res.send("Hello");
+const students = async (req, res, next) => {
+    const result = await mongodb.getDb().db().collection('students').find();
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
+    });
 };
 
-module.exports = {home, hello};
+const teachers = async (req, res, next) => {
+    const result = await mongodb.getDb().db().collection('teachers').find();
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
+    });
+};
+
+const disabilities = async (req, res, next) => {
+    const result = await mongodb.getDb().db().collection('disabilities').find();
+    result.toArray().then((lists) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.status(200).json(lists);
+    });
+};
+
+
+module.exports = {home, students, teachers, disabilities};
