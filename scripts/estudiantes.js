@@ -6,7 +6,7 @@ async function apiFetch(url) {
 }
 
 const getData = async () => {
-  const data = await apiFetch('http://localhost:8080/students');
+  const data = await apiFetch('https://pruebas-1-69c8.onrender.com/students');
   displayAllData(data[1]);
 };
 
