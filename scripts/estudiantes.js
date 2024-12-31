@@ -7,45 +7,38 @@ async function apiFetch(url) {
 
 const getData = async () => {
   const data = await apiFetch('https://pruebas-1-69c8.onrender.com/students');
-  displayAllData(data[1]);
+  displayAllData(data);
 };
 
 function displayAllData(data) {
-  displayProfessionalName(data.firstName);
-  displayImage(data.lastName);
-  displayPrimaryDescription(data);
-  displayWorkDescription(data);
-  displayLinkTitleText(data);
-
+  for (const element of data) {
+    displayRow(element);
+  }
+  
 }
 
-function displayProfessionalName(n) {
-  let professionalName = document.getElementById('professionalName');
-  professionalName.innerHTML = n;
+function displayRow(info) {
+  var tabla = document.getElementById('tablaEstudiantes');
+  var fila = document.createElement("tr");
+  var nombre = document.createElement("td");
+  nombre.innerHTML = info.firstName;
+  fila.appendChild(nombre);
+  var apellido = document.createElement("td");
+  apellido.innerHTML = info.lastName;
+  fila.appendChild(apellido);
+  var edad = document.createElement("td");
+  edad.innerHTML = info.age;
+  fila.appendChild(edad);
+  var grado = document.createElement("td");
+  grado.innerHTML = info.grade;
+  fila.appendChild(grado);
+  var dificultad = document.createElement("td");
+  dificultad.innerHTML = info.disabilities[0].disability;
+  fila.appendChild(dificultad);
+  var observacion = document.createElement("td");
+  observacion.innerHTML =  info.disabilities[0].observations;
+  fila.appendChild(observacion);
+  tabla.appendChild(fila);
 }
-
-function displayImage(img) {
-  let image = document.getElementById('professionalImage');
-  image.innerHTML = img;
-}
-function displayPrimaryDescription(data) {
-  let nameLink = document.getElementById('nameLink');
-  nameLink.innerHTML = data.firstName;
-  let primaryDescription = document.getElementById('primaryDescription');
-  primaryDescription.innerHTML = data.age;
-}
-
-function displayWorkDescription(data) {
-  let workDescription1 = document.getElementById('workDescription1');
-  workDescription1.innerHTML = data.disabilities[0].disability;
-  let workDescription2 = document.getElementById('workDescription2');
-  workDescription2.innerHTML = data.disabilities[0].observations;
-}
-
-function displayLinkTitleText(data) {
-  let linkTitle = document.getElementById('linkTitleText');
-  linkTitle.innerHTML = data.grade;
-}
-
 
 getData();
